@@ -1,3 +1,10 @@
+### `/feedback` — `FirstServlet.java`
+- Accepts form submission via POST
+- Extracts `email`, `phone`, `feedback_message`
+- Responds with HTML showing submitted data
+
+---
+
 <!doctype html>
 <html lang="en">
   <head>
