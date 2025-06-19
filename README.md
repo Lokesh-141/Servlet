@@ -33,27 +33,26 @@ A simple Java web application using JSP and Servlets (Jakarta EE) that allows us
 ---
 
 ## 📁 Folder Structure & File Descriptions
-
 feedback_app/
 ├── src/
-│ ├── main/
-│ │ ├── java/
-│ │ │ ├── feedback_app/
-│ │ │ │ └── FirstServlet.java # Handles POST feedback form submission
-│ │ │ └── feedback_app/session/manage/
-│ │ │ ├── Request1Servlet.java # Sets cookies and session data (/servlet1)
-│ │ │ └── Request2Servlet.java # Reads cookies, session, context params (/servlet2)
-│ │ └── resources/
-│ │ └── application.properties # Spring-compatible placeholder (unused here)
-│ └── webapp/
-│ ├── css/
-│ │ └── style.css # Custom styling for pages
-│ ├── feedback.jsp # Feedback form page
-│ ├── index.jsp # Landing page with navigation buttons
-│ ├── header.jsp # Bootstrap navbar reused across pages
-│ ├── links.jsp # Bootstrap CSS & custom style includes
-│ ├── script.jsp # Bootstrap JS includes
-│ └── WEB-INF/
-│ └── web.xml # Configures servlets and context parameters
-├── pom.xml # Maven config (Servlet + JSP dependencies)
-└── README.md # Project documentation (this file)
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── feedback_app/
+│   │   │   │   └── FirstServlet.java               # Handles POST feedback form submission
+│   │   │   └── feedback_app/session/manage/
+│   │   │       ├── Request1Servlet.java            # Sets cookies and session data (/servlet1)
+│   │   │       └── Request2Servlet.java            # Reads cookies, session, context params (/servlet2)
+│   │   └── resources/
+│   │       └── application.properties              # Placeholder
+│   └── webapp/
+│       ├── css/
+│       │   └── style.css                           # Custom styling
+│       ├── feedback.jsp                            # Feedback form UI
+│       ├── index.jsp                               # Landing page
+│       ├── header.jsp                              # Navbar
+│       ├── links.jsp                               # Bootstrap CSS includes
+│       ├── script.jsp                              # Bootstrap JS includes
+│       └── WEB-INF/
+│           └── web.xml                             # Servlet and context config
+├── pom.xml                                          # Maven config
+└── README.md                                        # Project documentation
