@@ -53,3 +53,69 @@ feedback_app/
 ├── pom.xml                                          # Maven config (Servlet + JSP dependencies)
 └── README.md                                        # Project documentation (this file)
 ```
+
+
+---
+
+## 📑 Servlet Endpoints
+
+### `/feedback` — `FirstServlet.java`
+- Accepts form submission via POST
+- Extracts `email`, `phone`, `feedback_message`
+- Responds with HTML showing submitted data
+
+---
+
+### `/servlet1` — `Request1Servlet.java`
+- Sets cookies: `username`, `userid`
+- Creates session attribute `userSecret`
+- Reads:
+  - `ServletConfig` param: `userName`
+  - `ServletContext` param: `app_name`
+- Displays values in HTML response
+
+---
+
+### `/servlet2` — `Request2Servlet.java`
+- Reads cookies set by `/servlet1`
+- Fetches session attribute `userSecret`
+- Displays cookie/session/context values
+- Gracefully handles missing cookies or sessions
+
+---
+
+## ⚙️ `web.xml` Setup (Declarative Servlet Config)
+
+Located in `src/main/webapp/WEB-INF/web.xml`:
+
+```xml
+<context-param>
+  <param-name>app_name</param-name>
+  <param-value>FeedbackApp</param-value>
+</context-param>
+
+<servlet>
+  <servlet-name>servlet1</servlet-name>
+  <servlet-class>feedback_app.session.manage.Request1Servlet</servlet-class>
+  <init-param>
+    <param-name>userName</param-name>
+    <param-value>Durgesh</param-value>
+  </init-param>
+</servlet>
+<servlet-mapping>
+  <servlet-name>servlet1</servlet-name>
+  <url-pattern>/servlet1</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>servlet2</servlet-name>
+  <servlet-class>feedback_app.session.manage.Request2Servlet</servlet-class>
+  <init-param>
+    <param-name>userEmail</param-name>
+    <param-value>durgesh@gmail.com</param-value>
+  </init-param>
+</servlet>
+<servlet-mapping>
+  <servlet-name>servlet2</servlet-name>
+  <url-pattern>/servlet2</url-pattern>
+</servlet-mapping>
