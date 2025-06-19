@@ -33,8 +33,7 @@ A simple Java web application using JSP and Servlets (Jakarta EE) that allows us
 ---
 
 ## 📁 Folder Structure & File Descriptions
-```text
-feedback_app/
+```feedback_app/
 ├── src/
 │   ├── main/
 │   │   ├── java/
