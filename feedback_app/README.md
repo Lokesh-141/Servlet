@@ -118,8 +118,7 @@ Located in `src/main/webapp/WEB-INF/web.xml`:
   <servlet-name>servlet2</servlet-name>
   <url-pattern>/servlet2</url-pattern>
 </servlet-mapping>
-
-
+```
 ---
 
 ## ⚖️ License
