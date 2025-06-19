@@ -122,7 +122,7 @@ Located in `src/main/webapp/WEB-INF/web.xml`:
 
 ---
 
-## ⚖️ License
+## ⚙️ `web.xml` Setup (Declarative Servlet Config) ⚖️ License
 
 Licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
