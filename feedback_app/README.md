@@ -120,6 +120,7 @@ Located in `src/main/webapp/WEB-INF/web.xml`:
   <url-pattern>/servlet2</url-pattern>
 </servlet-mapping>
 
+
 ---
 
 ## ⚖️ License
