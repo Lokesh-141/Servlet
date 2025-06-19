@@ -1,7 +1,5 @@
 # Servlet
 
-# Servlet
-
 
 # Feedback Application
 
