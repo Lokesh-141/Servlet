@@ -36,8 +36,8 @@ feedback_app/
 │   │   │   ├── feedback_app/
 │   │   │   │   └── FirstServlet.java               # Handles POST feedback form submission
 │   │   │   └── feedback_app/session/manage/
-│   │   │       ├── Servlet1.java            # Sets cookies and session data (/servlet1)
-│   │   │       └── Servlet2.java            # Reads cookies, session, context params (/servlet2)
+│   │   │       ├── Request1Servlet.java            # Sets cookies and session data (/servlet1)
+│   │   │       └── Request2Servlet.java            # Reads cookies, session, context params (/servlet2)
 │   │   └── resources/
 │   │       └── application.properties              # Spring-compatible placeholder (unused here)
 │   └── webapp/
