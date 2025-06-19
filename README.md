@@ -1,6 +1,3 @@
-# Servlet
-
-
 # Feedback Application
 
 A simple Java web application using JSP and Servlets (Jakarta EE) that allows users to submit feedback and demonstrates cookie, session, and context parameter handling.
