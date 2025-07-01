@@ -1,44 +1,121 @@
-package com.tech.blog.servlets;
+package com.tech.blog.dao;
+import com.tech.blog.entities.Category;
+import com.tech.blog.entities.Post;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+public class PostDao {
+    Connection con;
 
-import com.tech.blog.dao.UserDao;
-import com.tech.blog.entities.User;
-import com.tech.blog.helper.ConnectionProvider;
-import java.io.IOException;
-import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-@MultipartConfig
-public class RegisterServlet extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String check = request.getParameter("check");
-            if (check == null) {
-                out.println("box not checked");
-            } else {
-                String name = request.getParameter("user_name");
-                String email = request.getParameter("user_email");
-                String password = request.getParameter("user_password");
-                String gender = request.getParameter("gender");
-                String about = request.getParameter("about");
-                User user = new User(name, email, password, gender, about);
-                
-                UserDao dao = new UserDao(ConnectionProvider.getConnection());
-                if (dao.saveUser(user)) {
-                    out.println("done");
-                } else {
-                    out.println("error");
-                }
-            }
-        }
+    public PostDao(Connection con) {
+        this.con = con;
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+    
+    public ArrayList<Category> getAllCategories() {
+        ArrayList<Category> list = new ArrayList<>();
+        try {
+            String q = "select * from categories";
+            Statement st = this.con.createStatement();
+            ResultSet set = st.executeQuery(q);
+            while (set.next()) {
+                int cid = set.getInt("cid");
+                String name = set.getString("name");
+                String description = set.getString("description");
+                Category c = new Category(cid,name,description);
+                list.add(c);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public boolean savePost(Post p) {
+        boolean f = false;
+        try {
+            String q = "insert into posts(pTitle,pContent,pCode,pPic,catId,userId) values(?,?,?,?,?,?)";
+            PreparedStatement pstmt = con.prepareStatement(q);
+            pstmt.setString(1, p.getpTitle());
+            pstmt.setString(2, p.getpContent());
+            pstmt.setString(3, p.getpCode());
+            pstmt.setString(4, p.getpPic());
+            pstmt.setInt(5, p.getCatId());
+            pstmt.setInt(6, p.getUserId());
+            pstmt.executeUpdate();
+            f = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+    
+    public List<Post> getAllPosts() {
+        List<Post> list = new ArrayList<>();
+        try {
+            PreparedStatement p = con.prepareStatement("select * from posts order by pid desc");
+            ResultSet set = p.executeQuery();
+            while (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                Timestamp date = set.getTimestamp("pDate");
+                int catId = set.getInt("catId");
+                int userId = set.getInt("userId");
+                Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
+                list.add(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<Post> getPostByCatId(int catId) {
+        List<Post> list = new ArrayList<>();
+        try {
+            PreparedStatement p = con.prepareStatement("select * from posts where catId=?");
+            p.setInt(1, catId);
+            ResultSet set = p.executeQuery();
+            while (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                Timestamp date = set.getTimestamp("pDate");
+                int userId = set.getInt("userId");
+                Post post = new Post(pid, pTitle, pContent, pCode, pPic, date, catId, userId);
+                list.add(post);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public Post getPostByPostId(int postId) {
+        Post post = null;
+        try {
+            String q = "select * from posts where pid=?";
+            PreparedStatement p = this.con.prepareStatement(q);
+            p.setInt(1, postId);
+            ResultSet set = p.executeQuery();
+            if (set.next()) {
+                int pid = set.getInt("pid");
+                String pTitle = set.getString("pTitle");
+                String pContent = set.getString("pContent");
+                String pCode = set.getString("pCode");
+                String pPic = set.getString("pPic");
+                int cid = set.getInt("catId");
+                Timestamp date = set.getTimestamp("pDate");
+                int userId = set.getInt("userId");
+                post = new Post(pid, pTitle, pContent, pCode, pPic, date, cid, userId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
     }
 }
